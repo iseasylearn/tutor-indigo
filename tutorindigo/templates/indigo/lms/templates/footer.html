@@ -22,7 +22,7 @@
     % endif
   >
   <div class="footer-top">
-    <div class="powered-area">
+<!--     <div class="powered-area">
       ## Please leave this link and use one of the logos provided
       ## The OpenEdX link may be hidden when this view is served
       ## through an API to partner sites (such as marketing sites or blogs),
@@ -41,7 +41,7 @@
           </a>
         </li>
       </ul>
-    </div>
+    </div> -->
     {% if INDIGO_FOOTER_NAV_LINKS %}
     <nav class="nav-colophon" aria-label="${_('About')}">
       <ol>
@@ -57,7 +57,7 @@
   <span class="copyright-site">Copyrights ©${datetime.now().year}. All Rights Reserved.</span>
   % endif
     <div class="colophon">
-
+     
       % if context.get('include_language_selector', footer_language_selector_is_enabled()):
           <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
       % endif
@@ -86,7 +86,7 @@
       % endif
     >
     <div class="footer-top">
-      <div class="powered-area">
+<!--       <div class="powered-area">
         ## Please leave this link and use one of the logos provided
         ## The OpenEdX link may be hidden when this view is served
         ## through an API to partner sites (such as marketing sites or blogs),
@@ -105,7 +105,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </div> -->
       {% if INDIGO_FOOTER_NAV_LINKS %}
       <nav class="nav-colophon" aria-label="${_('About')}">
         <ol>
@@ -118,10 +118,10 @@
       </nav>
       {% endif %}
     </div>
-    <span class="copyright-site">Copyrights ©${datetime.now().year}. All Rights Reserved.</span>
+    <span class="copyright-site">Powered by <a href="https://docs.tutor.edly.io" rel="noopener" target="_blank"> tutor.</a> ©${datetime.now().year}. hsk.pro </span>
     % endif
       <div class="colophon">
-
+       
         % if context.get('include_language_selector', footer_language_selector_is_enabled()):
             <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
         % endif
