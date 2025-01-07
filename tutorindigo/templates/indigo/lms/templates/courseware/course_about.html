@@ -18,6 +18,9 @@ from openedx.core.lib.courses import course_image_url
   ## (https://developers.facebook.com/docs/opengraph/howtos/maximizing-distribution-media-content#tags)
   <meta property="og:title" content="${course.display_name_with_default}" />
   <meta property="og:description" content="${get_course_about_section(request, course, 'short_description')}" />
+  ## Add 20250107 keywords
+  <meta property="og:keywords" content=${_("китайский язык,онлайн обучение китайскому языку,репетитор по китайскому языку")}/>
+  ## End 20250107 keywords
 </%block>
 
 <%block name="js_extra">
