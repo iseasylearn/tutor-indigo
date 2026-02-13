@@ -47,6 +47,101 @@ from openedx.core.djangolib.markup import HTML, Text
         </div>
 
       </header>
+
+      <!-- 新增：轮播图区域（放在搜索栏下方） -->
+      <section class="carousel-section">
+          <div class="container">
+              <div class="carousel-container">
+                  <!-- 轮播图容器 -->
+                  <div class="carousel-wrapper">
+                      <div class="carousel-track" id="carouselTrack">
+                          <!-- 轮播项 1 -->
+                          <div class="carousel-slide active">
+                              <img src="${static.url('images/carousel-image-1.jpg')}" 
+                                   alt="${_('Slide 1')}" 
+                                   class="carousel-image"
+                                   loading="lazy">
+                              <div class="carousel-overlay">
+                                  <div class="carousel-content">
+                                      <h3 class="carousel-title">${_("Platform Introduction")}</h3>
+                                      <p class="carousel-description">
+                                          ${_("We provide high-quality online education to help you achieve your learning goals.")}
+                                      </p>
+                                      <a href="https://your-destination-url.com/slide1" 
+                                         class="carousel-btn">
+                                          ${_("Подробнее")}
+                                      </a>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <!-- 轮播项 2 -->
+                          <div class="carousel-slide">
+                              <img src="${static.url('images/carousel-image-2.jpg')}" 
+                                   alt="${_('Slide 2')}" 
+                                   class="carousel-image"
+                                   loading="lazy">
+                              <div class="carousel-overlay">
+                                  <div class="carousel-content">
+                                      <h3 class="carousel-title">${_("Course Variety")}</h3>
+                                      <p class="carousel-description">
+                                          ${_("Whether you're a beginner or a professional, you'll find courses that suit your needs.")}
+                                      </p>
+                                      <a href="https://your-destination-url.com/slide2" 
+                                         class="carousel-btn">
+                                          ${_("Подробнее")}
+                                      </a>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                          <!-- 轮播项 3 -->
+                          <div class="carousel-slide">
+                              <img src="${static.url('images/carousel-image-3.jpg')}" 
+                                   alt="${_('Slide 3')}" 
+                                   class="carousel-image"
+                                   loading="lazy">
+                              <div class="carousel-overlay">
+                                  <div class="carousel-content">
+                                      <h3 class="carousel-title">${_("Learning Support")}</h3>
+                                      <p class="carousel-description">
+                                          ${_("Our platform provides comprehensive support for your learning journey.")}
+                                      </p>
+                                      <a href="https://your-destination-url.com/slide3" 
+                                         class="carousel-btn">
+                                          ${_("Подробнее")}
+                                      </a>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- 轮播控制按钮 -->
+                  <div class="carousel-controls">
+                      <button class="carousel-btn-prev" id="prevBtn" aria-label="${_('Previous slide')}">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                      </button>
+                      <button class="carousel-btn-next" id="nextBtn" aria-label="${_('Next slide')}">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                      </button>
+                  </div>
+                  
+                  <!-- 轮播指示器 -->
+                  <div class="carousel-indicators" id="carouselIndicators">
+                      <button class="indicator active" data-slide="0" aria-label="${_('Go to slide 1')}"></button>
+                      <button class="indicator" data-slide="1" aria-label="${_('Go to slide 2')}"></button>
+                      <button class="indicator" data-slide="2" aria-label="${_('Go to slide 3')}"></button>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <!-- 新增：轮播图区域（放在搜索栏下方） end-->
+        
       <%include file="${courses_list}" />
 
     </section>
@@ -67,6 +162,91 @@ from openedx.core.djangolib.markup import HTML, Text
               $('#login').trigger("click");
          }
       })
+      
+      $(document).ready(function() {
+        // 轮播图功能
+        const carouselTrack = document.getElementById('carouselTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentSlide = 0;
+        const totalSlides = 3;
+        let autoPlayInterval;
+
+        function updateCarousel() {
+            // 更新轮播图位置
+            carouselTrack.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+            
+            // 更新指示器
+            indicators.forEach(function(indicator, index) {
+                if (index === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            // 更新滑块状态
+            document.querySelectorAll('.carousel-slide').forEach(function(slide, index) {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+        }
+
+        // 下一张
+        nextBtn.addEventListener('click', function() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+            resetAutoPlay();
+        });
+
+        // 上一张
+        prevBtn.addEventListener('click', function() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+            resetAutoPlay();
+        });
+
+        // 指示器点击
+        indicators.forEach(function(indicator, index) {
+            indicator.addEventListener('click', function() {
+                currentSlide = index;
+                updateCarousel();
+                resetAutoPlay();
+            });
+        });
+
+        // 自动轮播
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(function() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            }, 5000); // 每5秒切换
+        }
+        
+        // 重置自动播放计时器
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        // 初始化自动轮播
+        startAutoPlay();
+        
+        // 鼠标悬停时暂停自动播放
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', function() {
+            clearInterval(autoPlayInterval);
+        });
+        
+        // 鼠标离开时恢复自动播放
+        carouselContainer.addEventListener('mouseleave', function() {
+            startAutoPlay();
+        });
+    });
    </script>
 </%block>
 
