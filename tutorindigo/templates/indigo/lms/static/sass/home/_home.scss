@@ -138,6 +138,199 @@ section.home {
         }
     }
 }
+// #########
+// /home/hsk/.local/share/tutor/env/build/openedx/themes/indigo/lms/static/sass/home/_home.scss
+
+.carousel-section {
+    margin: 2rem 0; // 与搜索栏保持适当间距
+    background-color: #f8f9fa;
+
+    .carousel-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-wrapper {
+        position: relative;
+        width: 100%;
+        height: 400px; // 保持与之前相同的高度
+        overflow: hidden;
+    }
+
+    .carousel-track {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        will-change: transform; // 提升性能
+    }
+
+    .carousel-slide {
+        min-width: 100%;
+        height: 100%;
+        position: relative;
+        flex-shrink: 0; // 防止滑块收缩
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        
+        &.active {
+            opacity: 1;
+        }
+    }
+
+    .carousel-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .carousel-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel-content {
+        text-align: center;
+        color: white;
+        max-width: 600px;
+        padding: 2rem;
+        margin: 0 auto;
+
+        .carousel-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .carousel-description {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .carousel-btn {
+            display: inline-block;
+            background-color: #667eea;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+
+            &:hover {
+                background-color: #5a6fd8;
+                text-decoration: none;
+                color: white;
+            }
+        }
+    }
+
+    .carousel-controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 1rem;
+        pointer-events: none;
+
+        button {
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #333;
+
+            &:hover {
+                background: rgba(255, 255, 255, 1);
+            }
+        }
+    }
+
+    .carousel-indicators {
+        position: absolute;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            &.active {
+                background: rgba(255, 255, 255, 0.9);
+            }
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.7);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-section {
+        margin: 1.5rem 0;
+
+        .carousel-wrapper {
+            height: 280px; // 移动端适配高度
+        }
+
+        .carousel-content {
+            padding: 1rem;
+            max-width: 90%;
+
+            .carousel-title {
+                font-size: 1.5rem;
+            }
+
+            .carousel-description {
+                font-size: 1rem;
+            }
+        }
+
+        .carousel-controls {
+            padding: 0 0.5rem;
+
+            button {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    }
+}
+// ########## end
 body.indigo-dark-theme {
     h1 {
         color: $text-color-d;
